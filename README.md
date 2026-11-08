@@ -70,3 +70,13 @@ python -m pytest -v
 As credenciais de API ficam armazenadas no arquivo `.env`, que está listado no `.gitignore` e não deve ser enviado ao GitHub.
 
 O arquivo `.env.example` contém apenas as variáveis necessárias para configurar o projeto, sem credenciais reais.
+
+## Links do projeto
+
+| Serviço | Link |
+|---|---|
+| Chat publicado (Streamlit Cloud) | https://finbot-investimentos.streamlit.app/|
+| API publicada (Render) | https://finbot-api-yx86.onrender.com |
+| Documentação da API | https://finbot-api-yx86.onrender.com/docs |
+
+No plano gratuito do Render, a API pode entrar em suspensão após um período sem uso. A primeira requisição pode demorar.
