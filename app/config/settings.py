@@ -18,10 +18,27 @@ class Settings(BaseSettings):
     groq_api_key: SecretStr | None = None
     gemini_api_key: SecretStr | None = None
     mistral_api_key: SecretStr | None = None
+        # Langfuse (observabilidade e prompts)
+    langfuse_public_key: str | None = None
+    langfuse_secret_key: SecretStr | None = None
+    langfuse_host: str = "https://cloud.langfuse.com"
+
+    # Endereço da API, usado pelo front em Streamlit.
+    api_url: str = "http://127.0.0.1:8000"
 
     @property
     def modelo(self) -> str:
         return self.llm_modelo or MODELOS_PADRAO[self.llm_provedor]
+
+    @property
+    def langfuse_ativo(self) -> bool:
+        """Verifica se as duas chaves do Langfuse estão configuradas."""
+        segredo = (
+            self.langfuse_secret_key.get_secret_value()
+            if self.langfuse_secret_key
+            else ""
+        )
+        return bool(self.langfuse_public_key and segredo)
 
 
 settings = Settings()
