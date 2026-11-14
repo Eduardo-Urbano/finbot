@@ -55,3 +55,13 @@ def rastrear(sessao: str, usuario: str, nome: str = "chat"):
         trace_name=nome,
     ):
         yield
+
+def config_prompt(prompt) -> dict:
+    """Liga a chamada do LLM à versão do prompt usada."""
+
+    # Prompt local não possui versão no Langfuse.
+    if getattr(prompt, "is_fallback", True):
+        return {}
+
+    # Associa a geração à versão do prompt no Langfuse.
+    return {"metadata": {"langfuse_prompt": prompt}}
