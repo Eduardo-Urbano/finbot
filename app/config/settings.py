@@ -1,3 +1,4 @@
+
 from typing import Literal
 
 from pydantic import SecretStr
@@ -13,18 +14,24 @@ MODELOS_PADRAO = {
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
+    # LLM
     llm_provedor: Literal["groq", "gemini", "mistral"] = "groq"
     llm_modelo: str | None = None
     groq_api_key: SecretStr | None = None
     gemini_api_key: SecretStr | None = None
     mistral_api_key: SecretStr | None = None
-        # Langfuse (observabilidade e prompts)
+
+    # Langfuse
     langfuse_public_key: str | None = None
     langfuse_secret_key: SecretStr | None = None
     langfuse_host: str = "https://cloud.langfuse.com"
 
-    # Endereço da API, usado pelo front em Streamlit.
+    # API
     api_url: str = "http://127.0.0.1:8000"
+
+    # MongoDB (Aula 3)
+    mongo_url: SecretStr | None = None
+    mongo_banco: str = "finbot_dev"
 
     @property
     def modelo(self) -> str:
@@ -32,7 +39,6 @@ class Settings(BaseSettings):
 
     @property
     def langfuse_ativo(self) -> bool:
-        """Verifica se as duas chaves do Langfuse estão configuradas."""
         segredo = (
             self.langfuse_secret_key.get_secret_value()
             if self.langfuse_secret_key
