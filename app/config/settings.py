@@ -29,9 +29,9 @@ class Settings(BaseSettings):
     # API
     api_url: str = "http://127.0.0.1:8000"
 
-    # MongoDB (Aula 3)
-    mongo_url: SecretStr | None = None
-    mongo_banco: str = "finbot_dev"
+    # MongoDB
+    mongo_url: str = "mongodb://localhost:27017"
+    mongo_banco: str = "finbot"
 
     @property
     def modelo(self) -> str:
